@@ -11,7 +11,7 @@ print {\*STDOUT} <<'EOF';
 use v5.16;
 use IO::Uncompress::Gunzip ();
 IO::Uncompress::Gunzip::gunzip \*DATA, \my $script, AutoClose => 1 or die $IO::Uncompress::Gunzip::GunzipError;
-eval '#line '. __LINE__ .' "'.__FILE__."\"\n" . $script;
+eval '#line 1'.' "'.__FILE__."\"\n" . $script;
 die $@ if $@;
 __DATA__
 EOF

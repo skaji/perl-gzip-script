@@ -4,7 +4,7 @@ Gzip perl scripts to reduce their file size.
 
 # Example
 
-Applying gzip-script.pl to cpm,
+Applying perl-gzip-script to cpm,
 the size of cpm script is reduced from 731K to 189K.
 
 ```console

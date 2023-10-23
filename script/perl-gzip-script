@@ -2,15 +2,40 @@
 use v5.38;
 use experimental qw(builtin class defer for_list try);
 
+use File::Temp ();
+use Getopt::Long ();
 use IO::Compress::Gzip ();
+use File::Basename ();
+
+my $parser = Getopt::Long::Parser->new(
+    config => [qw(no_auto_abbrev no_ignore_case bundling)],
+);
+$parser->getoptionsfromarray(\@ARGV,
+    "i" => \my $in_place,
+    "h" => \my $help,
+) or exit 1;
 
 my $script = shift;
 
-if (!$script or $script =~ /^(?:-h|--help)$/) {
-    die "Usage: $0 script.pl\n";
+if (!$script or $help) {
+    die <<~'EOF';
+    Usage: perl-gzip-script SCRIPT
+
+    Options:
+      -h  show this help
+      -i  send output back to files, not stdout.
+
+    Examples:
+      $ perl-gzip-script script.pl > script.pl.gz
+      $ perl-gzip-script -i script.pl
+    EOF
 }
 
-print {\*STDOUT} <<'EOF';
+my $out = $in_place
+    ? File::Temp->new(DIR => File::Basename::dirname($script))
+    : \*STDOUT;
+
+$out->print(<<'EOF');
 #!/usr/bin/env perl
 use v5.16;
 use IO::Uncompress::Gunzip ();
@@ -20,8 +45,16 @@ die $@ if $@;
 __DATA__
 EOF
 
-IO::Compress::Gzip::gzip $script, \*STDOUT,
+IO::Compress::Gzip::gzip $script, $out,
     Append => 1,
     Minimal => 1,
     Level => IO::Compress::Gzip::Z_BEST_COMPRESSION,
 or die $IO::Compress::Gzip::GzipError;
+
+if ($in_place) {
+    $out->unlink_on_destroy(0);
+    $out->close;
+    my $mode = (stat $script)[2];
+    chmod $mode, $out->filename;
+    rename $out->filename, $script or die $!;
+}

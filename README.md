@@ -10,7 +10,7 @@ the size of cpm script is reduced from 731K to 189K.
 ```console
 $ curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm > cpm
 
-$ perl gzip-script.pl cpm > cpm-gzip
+$ perl script/perl-gzip-script cpm > cpm-gzip
 
 $ ls -alh cpm*
 -rw-r--r-- 1 skaji staff 731K Sep 30 06:48 cpm

@@ -4,7 +4,11 @@ use experimental qw(builtin class defer for_list try);
 
 use IO::Compress::Gzip ();
 
-my $script = shift or die "Usage: $0 script.pl\n";
+my $script = shift;
+
+if (!$script or $script =~ /^(?:-h|--help)$/) {
+    die "Usage: $0 script.pl\n";
+}
 
 print {\*STDOUT} <<'EOF';
 #!/usr/bin/env perl

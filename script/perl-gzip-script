@@ -52,9 +52,9 @@ IO::Compress::Gzip::gzip $script, $out,
 or die $IO::Compress::Gzip::GzipError;
 
 if ($in_place) {
-    $out->unlink_on_destroy(0);
     $out->close;
     my $mode = (stat $script)[2];
     chmod $mode, $out->filename;
     rename $out->filename, $script or die $!;
+    $out->unlink_on_destroy(0);
 }

@@ -1,42 +1,46 @@
-#!/usr/bin/env perl
-use v5.38;
-use experimental qw(builtin class defer for_list try);
+#!perl
+use v5.40;
 
+use File::Basename ();
 use File::Temp ();
 use Getopt::Long ();
 use IO::Compress::Gzip ();
-use File::Basename ();
+
+my $VERSION = v0.0.1;
+
+my $HELP = <<'EOF';
+Usage: perl-gzip-script [options] SCRIPT
+
+Options:
+  -i, --in-place  send output back to files, not stdout.
+  -s, --shebang   shebang, default: "#!/usr/bin/env perl"
+  -h, --help      show this help
+  -v, --version   show version
+
+Examples:
+  $ perl-gzip-script script.pl > script.pl.gz
+  $ perl-gzip-script -i script.pl
+EOF
 
 my $parser = Getopt::Long::Parser->new(
     config => [qw(no_auto_abbrev no_ignore_case bundling)],
 );
 $parser->getoptionsfromarray(\@ARGV,
-    "i" => \my $in_place,
-    "h" => \my $help,
+    "i|in-place" => \my $in_place,
+    "s|shebang=s" => \(my $shebang = '#!/usr/bin/env perl'),
+    "h|help" => sub { die $HELP },
+    "v|version" => sub { printf "v%vd\n", $VERSION; exit },
 ) or exit 1;
 
-my $script = shift;
+my $script = shift or die "Need SCRIPT argument.\n";
 
-if (!$script or $help) {
-    die <<~'EOF';
-    Usage: perl-gzip-script SCRIPT
-
-    Options:
-      -h  show this help
-      -i  send output back to files, not stdout.
-
-    Examples:
-      $ perl-gzip-script script.pl > script.pl.gz
-      $ perl-gzip-script -i script.pl
-    EOF
+my $out = \*STDOUT;
+if ($in_place) {
+    $out = File::Temp->new(DIR => File::Basename::dirname($script))
 }
 
-my $out = $in_place
-    ? File::Temp->new(DIR => File::Basename::dirname($script))
-    : \*STDOUT;
-
+$out->say($shebang);
 $out->print(<<'EOF');
-#!/usr/bin/env perl
 use IO::Uncompress::Gunzip ();
 IO::Uncompress::Gunzip::gunzip \*DATA, \my $script, AutoClose => 1 or die $IO::Uncompress::Gunzip::GunzipError;
 eval '#line 1 "' . __FILE__ . "\"\n" . $script;
@@ -50,10 +54,10 @@ IO::Compress::Gzip::gzip $script, $out,
     Level => IO::Compress::Gzip::Z_BEST_COMPRESSION,
 or die $IO::Compress::Gzip::GzipError;
 
-if ($in_place) {
-    $out->close;
-    my $mode = (stat $script)[2];
-    chmod $mode, $out->filename;
-    rename $out->filename, $script or die $!;
-    $out->unlink_on_destroy(0);
-}
+exit if !$in_place;
+
+$out->close;
+my $mode = (stat $script)[2];
+chmod $mode, $out->filename;
+rename $out->filename, $script or die $!;
+$out->unlink_on_destroy(0);

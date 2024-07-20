@@ -1,0 +1,4 @@
+prereqs:
+  runtime:
+    requires:
+      perl: { version: 'v5.40' }

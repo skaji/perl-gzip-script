@@ -1,34 +1,33 @@
-# perl-gzip-script
+[![Actions Status](https://github.com/skaji/perl-gzip-script/actions/workflows/test.yml/badge.svg)](https://github.com/skaji/perl-gzip-script/actions)
 
-Gzip perl scripts to reduce their file size.
+# NAME
 
-# Example
+App::PerlGzipScript - Gzip perl scripts to reduce their file size
 
-Applying perl-gzip-script to cpm,
-the size of cpm script is reduced from 731K to 189K.
+# SYNOPSIS
 
-```console
-$ curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm > cpm
+    $ perl-gzip-script script.pl > script.pl.gz
 
-$ perl script/perl-gzip-script cpm > cpm-gzip
+# DESCRIPTION
 
-$ ls -alh cpm*
--rw-r--r-- 1 skaji staff 731K Sep 30 06:48 cpm
--rw-r--r-- 1 skaji staff 189K Sep 30 06:48 cpm-gzip
+App::PerlGzipScript compresses perl scripts to reduce their file size.
 
-# ... and cpm-gzip works!
-$ perl cpm-gzip install Plack
-DONE install Apache-LogFormat-Compiler-0.36
-DONE install Test-TCP-2.22
-...
-DONE install Plack-1.0050
-18 distributions installed.
-```
+# EXAMPLE
 
-# Author
+Applying perl-gzip-script to [App::cpm](https://metacpan.org/pod/App%3A%3Acpm),
+the size of cpm script is reduced from 731KB to 189KB.
 
-Shoichi Kaji
+    $ curl -fsSL https://raw.githubusercontent.com/skaji/cpm/main/cpm > cpm
 
-# License
+    $ perl-gzip-script cpm > cpm-gzip
 
-The same as Perl
+    $ ls -alh cpm*
+    -rw-r--r-- 1 skaji staff 731K Sep 30 06:48 cpm
+    -rw-r--r-- 1 skaji staff 189K Sep 30 06:48 cpm-gzip
+
+# COPYRIGHT AND LICENSE
+
+Copyright 2024 Shoichi Kaji <skaji@cpan.org>
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.

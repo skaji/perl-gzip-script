@@ -1,4 +1,7 @@
 prereqs:
+  configure:
+    requires:
+      Module::Build::Tiny: { version: '0.051' }
   runtime:
     requires:
       perl: { version: 'v5.40' }

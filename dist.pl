@@ -1,7 +1,18 @@
+my @prereq = (
+    [ Prereqs => 'ConfigureRequires' ] => [
+        'Module::Build::Tiny' => '0.051',
+        'perl' => 'v5.40',
+    ],
+    [ Prereqs => 'RuntimeRequires' ] => [
+        'perl' => 'v5.40',
+    ],
+);
+
 my @config = (
     name => 'App-PerlGzipScript',
 
     [
+        @prereq,
         'ExecDir' => [ dir => 'script' ],
         'Git::GatherDir' => [ exclude_filename => 'META.json', exclude_filename => 'LICENSE' ],
         'CopyFilesFromBuild' => [ copy => 'META.json', copy => 'LICENSE' ],
@@ -15,7 +26,6 @@ my @config = (
         'MetaProvides::Package' => [ inherit_version => 0, inherit_missing => 0 ],
         'PruneFiles' => [ filename => 'dist.pl', filename => 'cpm.yml', filename => 'README.md', match => '^(xt|author|maint|example|eg)/' ],
         'GitHubREADME::Badge' => [ badges => 'github_actions/test.yml' ],
-        'Prereqs::From::cpmfile' => [],
         'GenerateFile' => [ filename => 'Build.PL', content => "use Module::Build::Tiny;\nBuild_PL();" ],
         'MetaJSON' => [],
         'Metadata' => [ x_static_install => 1 ],

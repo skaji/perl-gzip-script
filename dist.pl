@@ -4,6 +4,8 @@ my @prereq = (
         'perl' => 'v5.40',
     ],
     [ Prereqs => 'RuntimeRequires' ] => [
+        'File::Slurper' => '0.014',
+        'Gzip::Libdeflate' => '0.10',
         'perl' => 'v5.40',
     ],
 );

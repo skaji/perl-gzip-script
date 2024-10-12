@@ -22,6 +22,8 @@
       },
       "runtime" : {
          "requires" : {
+            "File::Slurper" : "0.014",
+            "Gzip::Libdeflate" : "0.10",
             "perl" : "v5.40.0"
          }
       }

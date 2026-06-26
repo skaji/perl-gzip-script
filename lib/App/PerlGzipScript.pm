@@ -29,6 +29,13 @@ the size of cpm script is reduced from 731KB to 189KB.
   -rw-r--r-- 1 skaji staff 731K Sep 30 06:48 cpm
   -rw-r--r-- 1 skaji staff 189K Sep 30 06:48 cpm-gzip
 
+=head1 ARTIFACT ATTESTATIONS
+
+GitHub Artifact Attestations are generated for release tarballs uploaded to
+CPAN. If you care about provenance for the uploaded tarballs, see:
+
+L<https://github.com/skaji/perl-gzip-script/attestations>
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright 2024 Shoichi Kaji <skaji@cpan.org>

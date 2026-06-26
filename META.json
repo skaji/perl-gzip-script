@@ -16,15 +16,14 @@
    "prereqs" : {
       "configure" : {
          "requires" : {
-            "Module::Build::Tiny" : "0.051",
-            "perl" : "v5.40.0"
+            "Module::Build::Tiny" : "0.053"
          }
       },
       "runtime" : {
          "requires" : {
             "File::Slurper" : "0.014",
             "Gzip::Libdeflate" : "0.10",
-            "perl" : "v5.40.0"
+            "perl" : "v5.42.0"
          }
       }
    },

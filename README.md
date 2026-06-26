@@ -1,5 +1,3 @@
-[![Actions Status](https://github.com/skaji/perl-gzip-script/actions/workflows/test.yml/badge.svg)](https://github.com/skaji/perl-gzip-script/actions)
-
 # NAME
 
 App::PerlGzipScript - Gzip perl scripts to reduce their file size

@@ -1,7 +1,8 @@
 use v5.42;
 use Test2::V0;
 
-my $exit = system $^X, "-c", "script/perl-gzip-script";
-is $exit, 0;
+use App::PerlGzipScript;
+
+pass "ok";
 
 done_testing;

@@ -63,8 +63,8 @@ my @plugin = (
 
     'CheckChangesHasContent' => [],
     'FakeRelease' => [],
-    'CopyFilesFromRelease' => [ filename => 'Changes', filename => 'script/perl-gzip-script', match => '\.pm$' ],
-    'Git::Commit' => [ commit_msg => '%v%t', allow_dirty => 'Changes', allow_dirty => 'META.json', allow_dirty => 'script/perl-gzip-script', allow_dirty_match => '\.pm$' ],
+    'CopyFilesFromRelease' => [ filename => 'Changes', match => '\.pm$' ],
+    'Git::Commit' => [ commit_msg => '%v%t', allow_dirty => 'Changes', allow_dirty => 'META.json', allow_dirty_match => '\.pm$' ],
     'Git::Tag' => [ tag_format => '%v%t', tag_message => '%v%t' ],
     'Git::Push' => [],
 );

@@ -1,5 +1,7 @@
 package App::PerlGzipScript v0.0.3;
 use v5.42;
+
+our $TRIAL = 0;
 __END__
 
 =encoding utf-8

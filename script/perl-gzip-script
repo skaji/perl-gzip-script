@@ -7,7 +7,7 @@ use File::Temp ();
 use Getopt::Long::Parser;
 use Gzip::Libdeflate;
 
-my $VERSION = v0.0.2;
+my $VERSION = v0.0.3;
 
 my $HELP = <<'EOF';
 Usage: perl-gzip-script [options] SCRIPT

@@ -1,4 +1,4 @@
-package App::PerlGzipScript v0.0.2;
+package App::PerlGzipScript v0.0.3;
 use v5.42;
 __END__
 
